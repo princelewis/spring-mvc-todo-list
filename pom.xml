@@ -7,7 +7,7 @@
     <groupId>academy.learnProgramming</groupId>
     <artifactId>todo-list</artifactId>
     <version>1.0-SNAPSHOT</version>
-
+    <packaging>war</packaging>
 
     <properties>
         <java.version>8</java.version>
@@ -43,6 +43,12 @@
             <version>${spring-mvc.version}</version>
         </dependency>
 
+<!--        <dependency>-->
+<!--            <groupId>org.codehaus.cargo</groupId>-->
+<!--            <artifactId>cargo-core-container-tomcat</artifactId>-->
+<!--            <version>1.7.13</version>-->
+<!--        </dependency>-->
+
     </dependencies>
 
 
@@ -62,6 +68,27 @@
                     <target>${java.version}</target>
                     <source>${java.version}</source>
                     <release>${java.version}</release>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.cargo</groupId>
+                <artifactId>cargo-maven2-plugin</artifactId>
+                <version>1.7.13</version>
+
+                <configuration>
+                    <container>
+                        <containerId>tomcat9x</containerId>
+                        <type>embedded</type>
+                    </container>
                 </configuration>
             </plugin>
         </plugins>
