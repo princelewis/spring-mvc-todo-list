@@ -1,6 +1,8 @@
 package academy.learnProgramming.controller;
 
+import academy.learnProgramming.service.DemoService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +14,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 //@RequestMapping
 public class DemoController {
+
+    private DemoService demoservice;
+
+    @Autowired
+    public DemoController(DemoService demoService){
+        this.demoservice = demoService;
+    }
 
     @ResponseBody
     @GetMapping("/hello")
@@ -25,13 +34,13 @@ public class DemoController {
     @GetMapping("welcome")
     public String welcome(Model model) {
 
-        model.addAttribute("user","Lewis");
+        model.addAttribute("hello",demoservice.getHelloMessage("Lewis"));
         return "welcome";
     }
 
     @ModelAttribute("welcomeMessage")
     public String welcomeMessage() {
         log.info("welcomeMessage() called");
-        return "welcome to this Demo application";
+        return demoservice.getWelcomeMessage();
     }
 }
