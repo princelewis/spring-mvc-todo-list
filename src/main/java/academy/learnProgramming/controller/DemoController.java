@@ -5,10 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @Controller
@@ -29,12 +26,15 @@ public class DemoController {
     }
 
     //http://localhost:8080/todo-list/welcome
+    //http://localhost:8080/todo-list/welcome?user=Tim
     //prefix + name + suffix
     // /WEB-INF/view/welcome.jsp
     @GetMapping("welcome")
-    public String welcome(Model model) {
+    public String welcome(@RequestParam(value = "user") String user,
+                          @RequestParam int age, Model model) {
 
-        model.addAttribute("hello",demoservice.getHelloMessage("Lewis"));
+        model.addAttribute("age", age);
+        model.addAttribute("hello",demoservice.getHelloMessage(user));
         return "welcome";
     }
 
